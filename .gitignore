@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+automation/node_modules/
+CLAUDE.md
+
+# Cypress artifacts
+automation/cypress/screenshots/
+automation/cypress/videos/
+automation/cypress/downloads/
+automation/CLAUDE.md
+
+# Claude Code internals
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db

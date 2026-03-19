@@ -1,0 +1,34 @@
+{
+  "macbook": {
+    "name": "Apple MacBook Pro 13-inch",
+    "searchTermExact": "Apple MacBook Pro",
+    "searchTerm": "MacBook",
+    "url": "/apple-macbook-pro",
+    "price": 1800.0,
+    "category": "Computers > Notebooks"
+  },
+  "htc": {
+    "name": "HTC One M8 Android L 5.0 Lollipop",
+    "searchTermExact": "HTC One M8",
+    "searchTerm": "HTC",
+    "url": "/htc-one-m8-android-l-5-0-lollipop",
+    "price": 245.0,
+    "category": "Electronics > Cell phones"
+  },
+  "nike": {
+    "name": "Nike Floral Roshe Customized Running Shoes",
+    "searchTermExact": "Nike Floral Roshe",
+    "searchTerm": "Nike",
+    "url": "/nike-floral-roshe-customized-running-shoes",
+    "price": 40.0,
+    "category": "Apparel > Shoes"
+  },
+  "adidas": {
+    "name": "adidas Consortium Campus 80s Running Shoes",
+    "searchTermExact": "adidas Consortium",
+    "searchTerm": "Adidas",
+    "url": "/adidas-consortium-campus-80s-running-shoes",
+    "price": 27.56,
+    "category": "Apparel > Shoes"
+  }
+}

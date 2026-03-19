@@ -1,0 +1,38 @@
+{
+  "auth": {
+    "loginSuccess": "Welcome",
+    "loginInvalidCredentials": "Login was unsuccessful. Please correct the errors and try again.",
+    "loginEmailNotFound": "No customer account found",
+    "loginFieldRequired": "Please enter your email",
+    "registerSuccess": "Your registration completed",
+    "registerEmailExists": "The specified email already exists",
+    "registerPasswordMismatch": "The password and confirmation password do not match.",
+    "registerFieldRequired": "First name is required."
+  },
+  "search": {
+    "noResults": "No products were found that matched your criteria.",
+    "resultsFound": "Search results"
+  },
+  "cart": {
+    "productAdded": "The product has been added to your shopping cart",
+    "cartUpdated": "The cart has been updated!",
+    "productRemoved": "",
+    "cartEmpty": "Your Shopping Cart is empty!"
+  },
+  "checkout": {
+    "orderSuccess": "Your order has been successfully processed!",
+    "addressRequired": "Address is required.",
+    "cityRequired": "City is required.",
+    "zipRequired": "Zip / postal code is required.",
+    "phoneRequired": "Phone is required."
+  },
+  "wishlist": {
+    "productAdded": "The product has been added to your wishlist",
+    "wishlistEmpty": "The wishlist is empty!",
+    "loginRequired": "To add to wishlist, you need to sign in or create an account."
+  },
+  "compare": {
+    "productAdded": "The product has been added to your product comparison",
+    "compareEmpty": "You have no items to compare."
+  }
+}
