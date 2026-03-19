@@ -66,8 +66,8 @@ describe('API REST — Produtos', () => {
         // Assert — botão de compra presente (confirma que é página de produto)
         expect(response.body).to.include('add-to-cart-button');
 
-        // Assert — imagem do produto presente
-        expect(response.body).to.include('product-img-picture');
+        // Assert — imagem do produto presente (div.picture contém a imagem principal)
+        expect(response.body).to.include('class="picture"');
       });
     });
   });
