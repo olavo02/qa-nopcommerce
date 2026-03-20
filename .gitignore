@@ -7,6 +7,10 @@ CLAUDE.md
 automation/cypress/screenshots/
 automation/cypress/videos/
 automation/cypress/downloads/
+
+# Allure
+automation/allure-results/
+automation/allure-report/
 automation/CLAUDE.md
 
 # Claude Code internals
