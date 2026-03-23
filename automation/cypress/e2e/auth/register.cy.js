@@ -1,5 +1,6 @@
 import { RegisterPage } from '../../pages/RegisterPage';
 import { createUser } from '../../utils/factories/userFactory';
+import { epic, feature, story, severity, label } from 'allure-js-commons';
 
 const registerPage = new RegisterPage();
 
@@ -24,6 +25,12 @@ function buildRegisterBody(user, token) {
 }
 
 describe('Autenticação — Cadastro', () => {
+  beforeEach(() => {
+    epic('Autenticação');
+    feature('Cadastro');
+    label('tag', 'E2E');
+  });
+
   let existingUser;
 
   // Cria usuário via HTTP sem cookies CF → bypassa Cloudflare para setup
@@ -36,6 +43,8 @@ describe('Autenticação — Cadastro', () => {
   // cy.request() POST /register (bypassa CF) → verifica mensagem de sucesso no response
   it('deve cadastrar novo usuário com dados válidos', () => {
     // Ref: CT-AUTH-06 | TC-AUTH-05
+    story('CT-AUTH-06');
+    severity('critical');
 
     cy.fixture('messages').then((messages) => {
       // Arrange
@@ -62,6 +71,8 @@ describe('Autenticação — Cadastro', () => {
   // cy.request() POST /register com e-mail duplicado → verifica erro no response body
   it('não deve cadastrar com e-mail já existente', () => {
     // Ref: CT-AUTH-07 | TC-AUTH-06
+    story('CT-AUTH-07');
+    severity('normal');
 
     cy.fixture('messages').then((messages) => {
       // Arrange — usa o e-mail do usuário já cadastrado no before()
@@ -92,6 +103,8 @@ describe('Autenticação — Cadastro', () => {
   // O servidor valida e devolve a página com mensagens de erro embutidas no HTML.
   it('não deve cadastrar com campos obrigatórios vazios', () => {
     // Ref: CT-AUTH-08
+    story('CT-AUTH-08');
+    severity('normal');
 
     cy.fixture('messages').then((messages) => {
       // Arrange — campos todos em branco
@@ -127,6 +140,8 @@ describe('Autenticação — Cadastro', () => {
   // Teste de UI puro — validação client-side (jQuery unobtrusive) sem POST ao servidor
   it('não deve cadastrar com senhas divergentes', () => {
     // Ref: CT-AUTH-09 | TC-AUTH-07
+    story('CT-AUTH-09');
+    severity('normal');
 
     cy.fixture('messages').then((messages) => {
       // Arrange

@@ -1,4 +1,5 @@
 import { ComparePage } from '../../pages/ComparePage';
+import { epic, feature, story, severity, label } from 'allure-js-commons';
 
 const comparePage = new ComparePage();
 
@@ -78,9 +79,17 @@ function addToCompareViaRequest(productUrl) {
 // ─── Suite ────────────────────────────────────────────────────────────────────
 
 describe('Comparação de Produtos', () => {
+  beforeEach(() => {
+    epic('Comparação');
+    feature('Comparação de Produtos');
+    label('tag', 'E2E');
+  });
+
   // ─── CT-COMP-01 ───────────────────────────────────────────────────────────────
   it('deve adicionar produto à lista de comparação', () => {
     // Ref: CT-COMP-01
+    story('CT-COMP-01');
+    severity('minor');
 
     cy.fixture('products').then((products) => {
       // Arrange
@@ -103,6 +112,8 @@ describe('Comparação de Produtos', () => {
   // ─── CT-COMP-02 ───────────────────────────────────────────────────────────────
   it('deve visualizar comparação entre dois produtos', () => {
     // Ref: CT-COMP-02
+    story('CT-COMP-02');
+    severity('minor');
 
     cy.fixture('products').then((products) => {
       // Arrange — adiciona dois produtos distintos para comparação

@@ -6,12 +6,22 @@
 // resposta como um teste de API (status code, presença de campos esperados).
 // =============================================================================
 
+import { epic, feature, story, severity, label, step } from 'allure-js-commons';
+
 describe('API REST — Produtos', () => {
+  beforeEach(() => {
+    epic('API REST');
+    feature('API - Produtos');
+    label('tag', 'API');
+  });
+
   // ─── CT-API-03 | TC-API-03 ──────────────────────────────────────────────────
   // GET /search?q=MacBook → 200 + lista de produtos no body (estrutura HTML)
   // Valida: status, presença do container de produtos, ao menos 1 item listado
   it('deve consultar lista de produtos e retornar resultados', () => {
     // Ref: CT-API-03 | TC-API-03
+    story('CT-API-03');
+    severity('normal');
 
     // Arrange
     cy.fixture('products').then((products) => {
@@ -23,17 +33,15 @@ describe('API REST — Produtos', () => {
         url: `/search?q=${encodeURIComponent(searchTerm)}`,
         failOnStatusCode: false,
       }).then((response) => {
-        // Assert — status 200
-        expect(response.status).to.eq(200);
+        step('Assert — validar status e content-type', () => {
+          expect(response.status).to.eq(200);
+          expect(response.headers['content-type']).to.include('text/html');
+        });
 
-        // Assert — body é HTML (content-type text/html)
-        expect(response.headers['content-type']).to.include('text/html');
-
-        // Assert — estrutura de listagem presente (container + ao menos 1 produto)
-        expect(response.body).to.include('product-item');
-
-        // Assert — produto esperado presente na listagem
-        expect(response.body).to.include(products.macbook.searchTermExact);
+        step('Assert — validar estrutura de listagem e produto esperado', () => {
+          expect(response.body).to.include('product-item');
+          expect(response.body).to.include(products.macbook.searchTermExact);
+        });
       });
     });
   });
@@ -43,6 +51,8 @@ describe('API REST — Produtos', () => {
   // Valida: status, nome do produto, preço, botão add-to-cart presente
   it('deve consultar produto por identificador e retornar detalhes', () => {
     // Ref: CT-API-04
+    story('CT-API-04');
+    severity('normal');
 
     // Arrange
     cy.fixture('products').then((products) => {
@@ -54,20 +64,16 @@ describe('API REST — Produtos', () => {
         url: productUrl,
         failOnStatusCode: false,
       }).then((response) => {
-        // Assert — status 200
-        expect(response.status).to.eq(200);
+        step('Assert — validar status e nome do produto', () => {
+          expect(response.status).to.eq(200);
+          expect(response.body).to.include(products.macbook.searchTermExact);
+        });
 
-        // Assert — nome do produto presente
-        expect(response.body).to.include(products.macbook.searchTermExact);
-
-        // Assert — preço presente
-        expect(response.body).to.include('product-price');
-
-        // Assert — botão de compra presente (confirma que é página de produto)
-        expect(response.body).to.include('add-to-cart-button');
-
-        // Assert — imagem do produto presente (div.picture contém a imagem principal)
-        expect(response.body).to.include('class="picture"');
+        step('Assert — validar elementos da página de produto', () => {
+          expect(response.body).to.include('product-price');
+          expect(response.body).to.include('add-to-cart-button');
+          expect(response.body).to.include('class="picture"');
+        });
       });
     });
   });

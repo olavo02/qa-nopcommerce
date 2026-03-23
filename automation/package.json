@@ -6,7 +6,11 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "test": "cypress run"
+    "test": "cypress run",
+    "allure:generate": "npx allure generate --output allure-report allure-results",
+    "allure:open": "npx allure open allure-report",
+    "allure:history": "cp -r allure-report/history allure-results/history 2>/dev/null; exit 0",
+    "allure:full": "npm run cy:run && npm run allure:generate && npm run allure:open"
   },
   "keywords": [],
   "author": "",

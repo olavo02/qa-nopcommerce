@@ -1,5 +1,6 @@
 import { WishlistPage } from '../../pages/WishlistPage';
 import { createUser } from '../../utils/factories/userFactory';
+import { epic, feature, story, severity, label } from 'allure-js-commons';
 
 const wishlistPage = new WishlistPage();
 
@@ -101,6 +102,12 @@ function isWishlistSuccess(response) {
 // ─── Suite ────────────────────────────────────────────────────────────────────
 
 describe('Wishlist — Lista de Desejos', () => {
+  beforeEach(() => {
+    epic('Wishlist');
+    feature('Lista de Desejos');
+    label('tag', 'E2E');
+  });
+
   let userEmail;
   let userPassword;
 
@@ -116,6 +123,8 @@ describe('Wishlist — Lista de Desejos', () => {
   // ─── CT-WISH-01 ───────────────────────────────────────────────────────────────
   it('deve adicionar produto à wishlist estando logado', () => {
     // Ref: CT-WISH-01
+    story('CT-WISH-01');
+    severity('normal');
 
     cy.fixture('products').then((products) => {
       // Arrange — login via HTTP (seta cookie de sessão) + produto da fixture
@@ -140,6 +149,8 @@ describe('Wishlist — Lista de Desejos', () => {
   // ─── CT-WISH-02 ───────────────────────────────────────────────────────────────
   it('deve remover produto da wishlist', () => {
     // Ref: CT-WISH-02
+    story('CT-WISH-02');
+    severity('normal');
 
     cy.fixture('products').then((products) => {
       // Arrange — login + adiciona produto para garantir estado inicial com item

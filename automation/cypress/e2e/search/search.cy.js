@@ -1,4 +1,5 @@
 import { SearchResultsPage } from '../../pages/SearchResultsPage';
+import { epic, feature, story, severity, label } from 'allure-js-commons';
 
 const searchPage = new SearchResultsPage();
 
@@ -11,9 +12,17 @@ const isCloudflareBlocked = (response) =>
   response.body.includes('cf-browser-verification');
 
 describe('Busca de Produtos', () => {
+  beforeEach(() => {
+    epic('Busca');
+    feature('Busca de Produtos');
+    label('tag', 'E2E');
+  });
+
   // ─── CT-BUSCA-01 | TC-BUSCA-01 ──────────────────────────────────────────────
   it('deve encontrar produto existente pelo nome exato', () => {
     // Ref: CT-BUSCA-01 | TC-BUSCA-01
+    story('CT-BUSCA-01');
+    severity('normal');
 
     cy.fixture('products').then((products) => {
       // Arrange
@@ -36,6 +45,8 @@ describe('Busca de Produtos', () => {
   // ─── CT-BUSCA-02 | TC-BUSCA-02 ──────────────────────────────────────────────
   it('não deve encontrar produto com termo inexistente', () => {
     // Ref: CT-BUSCA-02 | TC-BUSCA-02
+    story('CT-BUSCA-02');
+    severity('minor');
 
     cy.fixture('messages').then((messages) => {
       // Arrange
@@ -57,6 +68,8 @@ describe('Busca de Produtos', () => {
   // ─── CT-BUSCA-03 | TC-BUSCA-03 ──────────────────────────────────────────────
   it('deve encontrar produtos com termo parcial', () => {
     // Ref: CT-BUSCA-03 | TC-BUSCA-03
+    story('CT-BUSCA-03');
+    severity('normal');
 
     cy.fixture('products').then((products) => {
       // Arrange

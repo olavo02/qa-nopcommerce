@@ -7,6 +7,7 @@
 // =============================================================================
 
 import { createUser } from '../../utils/factories/userFactory';
+import { epic, feature, story, severity, label, step } from 'allure-js-commons';
 
 // Extrai o token CSRF do HTML para incluir no POST
 function extractCsrfToken(html) {
@@ -15,6 +16,12 @@ function extractCsrfToken(html) {
 }
 
 describe('API REST — Autenticação', () => {
+  beforeEach(() => {
+    epic('API REST');
+    feature('API - Autenticação');
+    label('tag', 'API');
+  });
+
   let userEmail;
   let userPassword;
 
@@ -32,6 +39,8 @@ describe('API REST — Autenticação', () => {
   // sessão (.ASPXAUTH ou .NOPCOMMERCE) retornado → equivalente a "obter token".
   it('deve autenticar com credenciais válidas e retornar sessão', () => {
     // Ref: CT-API-01 | TC-API-01
+    story('CT-API-01');
+    severity('critical');
 
     // Arrange — obtém token CSRF da página de login
     cy.request({ method: 'GET', url: '/login' }).then((getResponse) => {
@@ -52,18 +61,16 @@ describe('API REST — Autenticação', () => {
           RememberMe: false,
         },
       }).then((response) => {
-        // Assert — status 200
-        expect(response.status).to.eq(200);
+        step('Assert — validar status e sessão ativa', () => {
+          expect(response.status).to.eq(200);
+          expect(response.body).to.include('ico-account');
+          expect(response.body).to.not.include('login-page');
+        });
 
-        // Assert — sessão ativa: ícone de conta presente (usuário logado)
-        expect(response.body).to.include('ico-account');
-
-        // Assert — página não contém formulário de login (usuário não redirecionado de volta)
-        expect(response.body).to.not.include('login-page');
-
-        // Assert — ao menos 1 cookie de sessão foi criado pelo servidor
         cy.getCookies().then((cookies) => {
-          expect(cookies.length).to.be.greaterThan(0);
+          step('Assert — validar cookies de sessão presentes', () => {
+            expect(cookies.length).to.be.greaterThan(0);
+          });
         });
       });
     });
@@ -74,6 +81,8 @@ describe('API REST — Autenticação', () => {
   // (nopCommerce não usa 401 — retorna 200 com formulário + erro inline)
   it('não deve autenticar com credenciais inválidas', () => {
     // Ref: CT-API-02 | TC-API-02
+    story('CT-API-02');
+    severity('normal');
 
     // Arrange
     const invalidEmail = `invalido_${Date.now()}@naoexiste.com`;
@@ -96,15 +105,16 @@ describe('API REST — Autenticação', () => {
           RememberMe: false,
         },
       }).then((response) => {
-        // Assert — status 200, mensagem de erro presente, usuário não logado
-        expect(response.status).to.eq(200);
-        expect(response.body).to.satisfy(
-          (body) =>
-            body.includes('Login was unsuccessful') ||
-            body.includes('No customer account found'),
-          'Esperado: mensagem de erro de autenticação no body'
-        );
-        expect(response.body).to.not.include('ico-account');
+        step('Assert — validar erro de autenticação', () => {
+          expect(response.status).to.eq(200);
+          expect(response.body).to.satisfy(
+            (body) =>
+              body.includes('Login was unsuccessful') ||
+              body.includes('No customer account found'),
+            'Esperado: mensagem de erro de autenticação no body'
+          );
+          expect(response.body).to.not.include('ico-account');
+        });
       });
     });
   });

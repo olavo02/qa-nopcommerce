@@ -1,6 +1,7 @@
 import { CheckoutPage } from '../../pages/CheckoutPage';
 import { createUser } from '../../utils/factories/userFactory';
 import { createAddress } from '../../utils/factories/addressFactory';
+import { epic, feature, story, severity, label } from 'allure-js-commons';
 
 const checkoutPage = new CheckoutPage();
 
@@ -318,6 +319,12 @@ function performCheckoutViaRequest(address) {
 // ─── Suite ────────────────────────────────────────────────────────────────────
 
 describe('Checkout', () => {
+  beforeEach(() => {
+    epic('Checkout');
+    feature('Finalização de Compra');
+    label('tag', 'E2E');
+  });
+
   let userEmail;
   let userPassword;
 
@@ -342,6 +349,8 @@ describe('Checkout', () => {
   it('deve realizar checkout completo com dados válidos', () => {
     // Ref: CT-CHECK-01 | TC-CHECK-01
     // Cobre internamente: CT-CHECK-02, CT-CHECK-03, CT-CHECK-04, CT-CHECK-05
+    story('CT-CHECK-01');
+    severity('critical');
 
     cy.fixture('products').then((products) => {
       // Arrange — endereço aleatório + login + produto no carrinho
@@ -376,6 +385,8 @@ describe('Checkout', () => {
   // Clicar em Continue sem preencher campos não faz POST ao servidor → imune ao CF.
   it('não deve avançar no checkout com dados de endereço incompletos', () => {
     // Ref: CT-CHECK-06 | TC-CHECK-02
+    story('CT-CHECK-06');
+    severity('normal');
 
     cy.fixture('messages').then((messages) => {
       // Arrange — login + item no carrinho para habilitar acesso ao /checkout

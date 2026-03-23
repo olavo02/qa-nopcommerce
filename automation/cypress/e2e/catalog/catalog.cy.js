@@ -1,5 +1,6 @@
 import { CategoryPage } from '../../pages/CategoryPage';
 import { ProductPage } from '../../pages/ProductPage';
+import { epic, feature, story, severity, label } from 'allure-js-commons';
 
 const categoryPage = new CategoryPage();
 const productPage = new ProductPage();
@@ -11,9 +12,17 @@ const isCloudflareResponse = (body) =>
   body.includes('Just a moment') || body.includes('cf-browser-verification');
 
 describe('Catálogo de Produtos', () => {
+  beforeEach(() => {
+    epic('Catálogo');
+    feature('Navegação de Catálogo');
+    label('tag', 'E2E');
+  });
+
   // ─── CT-CAT-01 ───────────────────────────────────────────────────────────────
   it('deve navegar para a categoria Computers e exibir subcategorias', () => {
     // Ref: CT-CAT-01
+    story('CT-CAT-01');
+    severity('normal');
     // /computers exibe subcategorias (Desktops, Notebooks, Accessories),
     // não produtos diretamente.
 
@@ -28,6 +37,8 @@ describe('Catálogo de Produtos', () => {
   // ─── CT-CAT-02 ───────────────────────────────────────────────────────────────
   it('deve navegar para a subcategoria Computers > Notebooks e exibir produtos', () => {
     // Ref: CT-CAT-02
+    story('CT-CAT-02');
+    severity('normal');
     // Usa cy.request() para evitar bloqueio do Cloudflare após CT-CAT-01.
 
     // Act
@@ -48,6 +59,8 @@ describe('Catálogo de Produtos', () => {
   // ─── CT-CAT-03 ───────────────────────────────────────────────────────────────
   it('deve exibir os detalhes corretos do produto MacBook Pro', () => {
     // Ref: CT-CAT-03
+    story('CT-CAT-03');
+    severity('normal');
     // Usa cy.request() para evitar bloqueio do Cloudflare.
 
     cy.fixture('products').then((products) => {

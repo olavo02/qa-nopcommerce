@@ -1,5 +1,6 @@
 import { LoginPage } from '../../pages/LoginPage';
 import { createUser } from '../../utils/factories/userFactory';
+import { epic, feature, story, severity, label } from 'allure-js-commons';
 
 const loginPage = new LoginPage();
 
@@ -20,6 +21,12 @@ function buildLoginBody(token, email, password) {
 }
 
 describe('Autenticação — Login', () => {
+  beforeEach(() => {
+    epic('Autenticação');
+    feature('Login');
+    label('tag', 'E2E');
+  });
+
   let userEmail;
   let userPassword;
 
@@ -39,6 +46,8 @@ describe('Autenticação — Login', () => {
   // jar compartilhado. Depois cy.visit('/') carrega home com usuário logado.
   it('deve realizar login com credenciais válidas', () => {
     // Ref: CT-AUTH-01 | TC-AUTH-01
+    story('CT-AUTH-01');
+    severity('critical');
 
     // Arrange
     const email = userEmail;
@@ -67,6 +76,8 @@ describe('Autenticação — Login', () => {
   // cy.request() POST /login com senha errada → verifica mensagem no response body
   it('não deve realizar login com senha incorreta', () => {
     // Ref: CT-AUTH-02 | TC-AUTH-02
+    story('CT-AUTH-02');
+    severity('normal');
 
     cy.fixture('messages').then((messages) => {
       // Arrange
@@ -95,6 +106,8 @@ describe('Autenticação — Login', () => {
   // cy.request() POST /login com e-mail inexistente → verifica mensagem no response body
   it('não deve realizar login com e-mail inexistente', () => {
     // Ref: CT-AUTH-03 | TC-AUTH-03
+    story('CT-AUTH-03');
+    severity('normal');
 
     cy.fixture('messages').then((messages) => {
       // Arrange
@@ -123,6 +136,8 @@ describe('Autenticação — Login', () => {
   // Teste de UI puro — validação client-side (jQuery unobtrusive) sem POST ao servidor
   it('não deve realizar login com campos obrigatórios vazios', () => {
     // Ref: CT-AUTH-04 | TC-AUTH-04
+    story('CT-AUTH-04');
+    severity('normal');
 
     // Arrange — visita a página via browser (GET sem CF challenge)
     loginPage.visit();

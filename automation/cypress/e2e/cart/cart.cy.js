@@ -1,4 +1,5 @@
 import { CartPage } from '../../pages/CartPage';
+import { epic, feature, story, severity, label } from 'allure-js-commons';
 
 const cartPage = new CartPage();
 
@@ -73,9 +74,17 @@ function isCartSuccess(response) {
 }
 
 describe('Carrinho de Compras', () => {
+  beforeEach(() => {
+    epic('Carrinho');
+    feature('Gerenciamento do Carrinho');
+    label('tag', 'E2E');
+  });
+
   // ─── CT-CART-01 | TC-CART-01 ─────────────────────────────────────────────────
   it('deve adicionar produto ao carrinho', () => {
     // Ref: CT-CART-01 | TC-CART-01
+    story('CT-CART-01');
+    severity('critical');
 
     cy.fixture('products').then((products) => {
       // Arrange
@@ -101,6 +110,8 @@ describe('Carrinho de Compras', () => {
   // ─── CT-CART-02 ──────────────────────────────────────────────────────────────
   it('deve adicionar múltiplos produtos ao carrinho', () => {
     // Ref: CT-CART-02
+    story('CT-CART-02');
+    severity('normal');
 
     cy.fixture('products').then((products) => {
       // Arrange + Act — adiciona dois produtos distintos via HTTP
@@ -127,6 +138,8 @@ describe('Carrinho de Compras', () => {
   // ─── CT-CART-03 | TC-CART-02 ─────────────────────────────────────────────────
   it('deve remover produto do carrinho', () => {
     // Ref: CT-CART-03 | TC-CART-02
+    story('CT-CART-03');
+    severity('normal');
 
     cy.fixture('products').then((products) => {
       // Arrange
@@ -151,6 +164,8 @@ describe('Carrinho de Compras', () => {
   // ─── CT-CART-04 | TC-CART-03 ─────────────────────────────────────────────────
   it('deve atualizar a quantidade de item no carrinho', () => {
     // Ref: CT-CART-04 | TC-CART-03
+    story('CT-CART-04');
+    severity('normal');
 
     cy.fixture('products').then((products) => {
       // Arrange
@@ -175,6 +190,8 @@ describe('Carrinho de Compras', () => {
   // ─── CT-CART-05 ──────────────────────────────────────────────────────────────
   it('deve calcular o subtotal corretamente', () => {
     // Ref: CT-CART-05
+    story('CT-CART-05');
+    severity('minor');
 
     cy.fixture('products').then((products) => {
       // Arrange

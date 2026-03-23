@@ -11,6 +11,7 @@
 // =============================================================================
 
 import { createUser } from '../../utils/factories/userFactory';
+import { epic, feature, story, severity, label, step } from 'allure-js-commons';
 
 // Extrai CSRF token do HTML
 function extractCsrfToken(html) {
@@ -39,6 +40,12 @@ function loginViaRequest(email, password) {
 }
 
 describe('API REST — Carrinho e Pedidos', () => {
+  beforeEach(() => {
+    epic('API REST');
+    feature('API - Carrinho e Pedidos');
+    label('tag', 'API');
+  });
+
   let userEmail;
   let userPassword;
 
@@ -56,6 +63,8 @@ describe('API REST — Carrinho e Pedidos', () => {
   //   Retorna JSON com { success: true, message: '...', updatetopcartsectionhtml: '...' }
   it('deve adicionar item ao carrinho via endpoint AJAX e retornar JSON de sucesso', () => {
     // Ref: CT-API-05
+    story('CT-API-05');
+    severity('normal');
 
     // Arrange — extrai o productId dinamicamente da página do produto
     cy.fixture('products').then((products) => {
@@ -95,25 +104,20 @@ describe('API REST — Carrinho e Pedidos', () => {
             __RequestVerificationToken: csrfToken,
           },
         }).then((response) => {
-          // Assert — status 200
-          expect(response.status).to.eq(200);
+          step('Assert — validar status e content-type JSON', () => {
+            expect(response.status).to.eq(200);
+            expect(response.headers['content-type']).to.include('application/json');
+          });
 
-          // Assert — resposta é JSON (endpoint AJAX real do nopCommerce)
-          expect(response.headers['content-type']).to.include('application/json');
-
-          // Assert — estrutura do JSON válida:
-          // O nopCommerce retorna { success: true, message, updatetopcartsectionhtml }
-          // quando o produto é adicionado, ou { redirect: '/url' } quando o produto
-          // requer seleção de atributos antes da adição (ambos são respostas válidas da API).
-          expect(response.body).to.satisfy(
-            (body) =>
-              (body.success === true && typeof body.message === 'string') ||
-              (typeof body.redirect === 'string' && body.redirect.length > 0),
-            'Response deve conter {success: true, message} ou {redirect: url}'
-          );
-
-          // Assert — resposta não está vazia (objeto com ao menos 1 campo)
-          expect(Object.keys(response.body).length).to.be.greaterThan(0);
+          step('Assert — validar estrutura do JSON de resposta', () => {
+            expect(response.body).to.satisfy(
+              (body) =>
+                (body.success === true && typeof body.message === 'string') ||
+                (typeof body.redirect === 'string' && body.redirect.length > 0),
+              'Response deve conter {success: true, message} ou {redirect: url}'
+            );
+            expect(Object.keys(response.body).length).to.be.greaterThan(0);
+          });
         });
       });
     });
@@ -124,6 +128,8 @@ describe('API REST — Carrinho e Pedidos', () => {
   // Fluxo: login via POST (obtém cookie de sessão) → GET /order/history
   it('deve consultar histórico de pedidos do usuário autenticado', () => {
     // Ref: CT-API-06
+    story('CT-API-06');
+    severity('normal');
 
     // Arrange — autentica o usuário para obter cookie de sessão
     loginViaRequest(userEmail, userPassword).then(() => {
@@ -133,17 +139,12 @@ describe('API REST — Carrinho e Pedidos', () => {
         url: '/order/history',
         failOnStatusCode: false,
       }).then((response) => {
-        // Assert — status 200 (não redireciona para /login)
-        expect(response.status).to.eq(200);
-
-        // Assert — página de histórico carregada (usuário autenticado)
-        expect(response.body).to.include('order-list');
-
-        // Assert — não redireciona para login (não contém form de login)
-        expect(response.body).to.not.include('login-page');
-
-        // Assert — página de conta exibida (usuário está logado)
-        expect(response.body).to.include('ico-account');
+        step('Assert — validar acesso autenticado ao histórico', () => {
+          expect(response.status).to.eq(200);
+          expect(response.body).to.include('order-list');
+          expect(response.body).to.not.include('login-page');
+          expect(response.body).to.include('ico-account');
+        });
       });
     });
   });
