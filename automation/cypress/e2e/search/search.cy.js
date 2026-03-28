@@ -22,7 +22,7 @@ describe('Busca de Produtos', () => {
   it('deve encontrar produto existente pelo nome exato', () => {
     // Ref: CT-BUSCA-01 | TC-BUSCA-01
     story('CT-BUSCA-01');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('products').then((products) => {
       // Arrange
@@ -69,7 +69,7 @@ describe('Busca de Produtos', () => {
   it('deve encontrar produtos com termo parcial', () => {
     // Ref: CT-BUSCA-03 | TC-BUSCA-03
     story('CT-BUSCA-03');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('products').then((products) => {
       // Arrange

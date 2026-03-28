@@ -77,7 +77,7 @@ describe('Autenticação — Login', () => {
   it('não deve realizar login com senha incorreta', () => {
     // Ref: CT-AUTH-02 | TC-AUTH-02
     story('CT-AUTH-02');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('messages').then((messages) => {
       // Arrange
@@ -107,7 +107,7 @@ describe('Autenticação — Login', () => {
   it('não deve realizar login com e-mail inexistente', () => {
     // Ref: CT-AUTH-03 | TC-AUTH-03
     story('CT-AUTH-03');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('messages').then((messages) => {
       // Arrange
@@ -137,7 +137,7 @@ describe('Autenticação — Login', () => {
   it('não deve realizar login com campos obrigatórios vazios', () => {
     // Ref: CT-AUTH-04 | TC-AUTH-04
     story('CT-AUTH-04');
-    severity('normal');
+    severity('critical');
 
     // Arrange — visita a página via browser (GET sem CF challenge)
     loginPage.visit();

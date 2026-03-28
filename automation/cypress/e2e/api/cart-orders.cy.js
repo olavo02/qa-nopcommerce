@@ -64,7 +64,7 @@ describe('API REST — Carrinho e Pedidos', () => {
   it('deve adicionar item ao carrinho via endpoint AJAX e retornar JSON de sucesso', () => {
     // Ref: CT-API-05
     story('CT-API-05');
-    severity('normal');
+    severity('critical');
 
     // Arrange — extrai o productId dinamicamente da página do produto
     cy.fixture('products').then((products) => {

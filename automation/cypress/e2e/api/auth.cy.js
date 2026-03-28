@@ -82,7 +82,7 @@ describe('API REST — Autenticação', () => {
   it('não deve autenticar com credenciais inválidas', () => {
     // Ref: CT-API-02 | TC-API-02
     story('CT-API-02');
-    severity('normal');
+    severity('critical');
 
     // Arrange
     const invalidEmail = `invalido_${Date.now()}@naoexiste.com`;

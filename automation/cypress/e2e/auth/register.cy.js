@@ -72,7 +72,7 @@ describe('Autenticação — Cadastro', () => {
   it('não deve cadastrar com e-mail já existente', () => {
     // Ref: CT-AUTH-07 | TC-AUTH-06
     story('CT-AUTH-07');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('messages').then((messages) => {
       // Arrange — usa o e-mail do usuário já cadastrado no before()
@@ -104,7 +104,7 @@ describe('Autenticação — Cadastro', () => {
   it('não deve cadastrar com campos obrigatórios vazios', () => {
     // Ref: CT-AUTH-08
     story('CT-AUTH-08');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('messages').then((messages) => {
       // Arrange — campos todos em branco
@@ -141,7 +141,7 @@ describe('Autenticação — Cadastro', () => {
   it('não deve cadastrar com senhas divergentes', () => {
     // Ref: CT-AUTH-09 | TC-AUTH-07
     story('CT-AUTH-09');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('messages').then((messages) => {
       // Arrange

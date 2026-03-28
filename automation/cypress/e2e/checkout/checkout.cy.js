@@ -386,7 +386,7 @@ describe('Checkout', () => {
   it('não deve avançar no checkout com dados de endereço incompletos', () => {
     // Ref: CT-CHECK-06 | TC-CHECK-02
     story('CT-CHECK-06');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('messages').then((messages) => {
       // Arrange — login + item no carrinho para habilitar acesso ao /checkout

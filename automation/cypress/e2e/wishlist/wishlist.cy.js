@@ -124,7 +124,7 @@ describe('Wishlist — Lista de Desejos', () => {
   it('deve adicionar produto à wishlist estando logado', () => {
     // Ref: CT-WISH-01
     story('CT-WISH-01');
-    severity('normal');
+    severity('minor');
 
     cy.fixture('products').then((products) => {
       // Arrange — login via HTTP (seta cookie de sessão) + produto da fixture
@@ -150,7 +150,7 @@ describe('Wishlist — Lista de Desejos', () => {
   it('deve remover produto da wishlist', () => {
     // Ref: CT-WISH-02
     story('CT-WISH-02');
-    severity('normal');
+    severity('minor');
 
     cy.fixture('products').then((products) => {
       // Arrange — login + adiciona produto para garantir estado inicial com item

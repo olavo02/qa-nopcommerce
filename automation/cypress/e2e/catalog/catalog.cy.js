@@ -22,7 +22,7 @@ describe('Catálogo de Produtos', () => {
   it('deve navegar para a categoria Computers e exibir subcategorias', () => {
     // Ref: CT-CAT-01
     story('CT-CAT-01');
-    severity('normal');
+    severity('minor');
     // /computers exibe subcategorias (Desktops, Notebooks, Accessories),
     // não produtos diretamente.
 
@@ -38,7 +38,7 @@ describe('Catálogo de Produtos', () => {
   it('deve navegar para a subcategoria Computers > Notebooks e exibir produtos', () => {
     // Ref: CT-CAT-02
     story('CT-CAT-02');
-    severity('normal');
+    severity('minor');
     // Usa cy.request() para evitar bloqueio do Cloudflare após CT-CAT-01.
 
     // Act
@@ -60,7 +60,7 @@ describe('Catálogo de Produtos', () => {
   it('deve exibir os detalhes corretos do produto MacBook Pro', () => {
     // Ref: CT-CAT-03
     story('CT-CAT-03');
-    severity('normal');
+    severity('critical');
     // Usa cy.request() para evitar bloqueio do Cloudflare.
 
     cy.fixture('products').then((products) => {

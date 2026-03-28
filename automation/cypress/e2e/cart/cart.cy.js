@@ -111,7 +111,7 @@ describe('Carrinho de Compras', () => {
   it('deve adicionar múltiplos produtos ao carrinho', () => {
     // Ref: CT-CART-02
     story('CT-CART-02');
-    severity('normal');
+    severity('critical');
 
     cy.fixture('products').then((products) => {
       // Arrange + Act — adiciona dois produtos distintos via HTTP
@@ -191,7 +191,7 @@ describe('Carrinho de Compras', () => {
   it('deve calcular o subtotal corretamente', () => {
     // Ref: CT-CART-05
     story('CT-CART-05');
-    severity('minor');
+    severity('normal');
 
     cy.fixture('products').then((products) => {
       // Arrange
