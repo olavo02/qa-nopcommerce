@@ -33,6 +33,8 @@ describe('Autenticação — Login', () => {
   // Cria usuário via HTTP antes de todos os testes
   // cy.request() sem cookies CF no jar → bypassa o Cloudflare Turnstile
   before(() => {
+    cy.clearCookies();
+    cy.clearLocalStorage();
     const user = createUser();
     userEmail = user.email;
     userPassword = user.password;
@@ -133,19 +135,29 @@ describe('Autenticação — Login', () => {
   });
 
   // ─── CT-AUTH-04 | TC-AUTH-04 ────────────────────────────────────────────────
-  // Teste de UI puro — validação client-side (jQuery unobtrusive) sem POST ao servidor
+  // Usa cy.request() POST com campos vazios → validação server-side (campo obrigatório).
+  // cy.visit() foi removido: após CT-AUTH-01 fazer cy.visit('/'), o CF bloqueia
+  // qualquer cy.visit() subsequente com 403. cy.request() com campos vazios
+  // aciona a mesma validação no servidor e é imune ao CF (Node.js HTTP sem cookies CF).
   it('não deve realizar login com campos obrigatórios vazios', () => {
     // Ref: CT-AUTH-04 | TC-AUTH-04
     story('CT-AUTH-04');
     severity('critical');
 
-    // Arrange — visita a página via browser (GET sem CF challenge)
-    loginPage.visit();
+    // Act — POST /login com email e senha vazios → validação server-side
+    cy.request('GET', '/login').then((getResponse) => {
+      const token = extractCsrfToken(getResponse.body);
 
-    // Act — submit sem preencher campos → jQuery valida antes do POST
-    loginPage.submit();
-
-    // Assert — field-validation-error aparece sem POST ao servidor
-    loginPage.assertEmailValidation();
+      cy.request({
+        method: 'POST',
+        url: '/login',
+        form: true,
+        failOnStatusCode: false,
+        body: buildLoginBody(token, '', ''),
+      }).then((response) => {
+        // Assert — servidor retorna erro de validação (campo obrigatório)
+        expect(response.body).to.include('field-validation-error');
+      });
+    });
   });
 });
